@@ -24,9 +24,13 @@ header {
 }
 .letra{
     display: inline-block;
-    width: 70px;
-    font-size: 50px;
+    width: 60px;
+    height: 40px;
+    font-size: 60px;
     color: #0A3871;
+    border-bottom: 3px solid #0A3871;
+    margin-left: 8px;
+    line-height: 45px;
 }
 .lienas{
     text-align: center;

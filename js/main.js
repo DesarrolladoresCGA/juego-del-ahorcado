@@ -25,7 +25,7 @@
         $elem = $html.adivinando;
         for (let letra of palabra){
             let $span = document.createElement('span');
-            let $txt = document.createTextNode('__');
+            let $txt = document.createTextNode('');
             if(adivinando.indexOf(letra) >= 0){
                 $txt.nodeValue = letra;
             }
