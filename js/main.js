@@ -1,11 +1,21 @@
 (function(){
 
-    var juego ={
-        palabra: 'ALURA',
-        estado: 7,
-        adivinando:['A', 'L'],
-        errado: ['B', 'J', 'K', 'C']
-    }
+    btnNuevo = document.getElementById('btnNuevoJuego');
+    btnDesistir = document.getElementById('btnDesistir');
+
+    var palabras = [
+        'ALURA',
+        'NIÑO',
+        'AFINIDAD',
+        'PROGRAMAR',
+        'ORACLE',
+        'YOUTUBE'
+    ];
+
+    //variable para almacenar la confgracion actual
+    var juego = null;
+    var finalizado = false;
+    
     var $html ={
         hombre: document.getElementById('img-Hombre'),
         adivinando: document.querySelector('.adivinado'),
@@ -109,8 +119,66 @@
             return;
         }
         adivinar(juego, letra);
+
+        var estado = juego.estado;
+
+        if(estado === 8 && !finalizado){
+
+            setTimeout(alertaGanado, 500);
+            finalizado = true;
+
+        }else if(estado === 1 && !finalizado){
+
+            let palabra = juego.palabra;
+
+            let fn = alertaPerdido.bind(undefined , palabra);
+
+            setTimeout(fn, 500);
+
+            finalizado = true;
+        }
+
+        dibujar(juego);
+    }
+    window.nuevoJuego = function nuevoJuego(){
+        
+        var palabra = palabraAleatoria();
+
+        finalizado = false;
+
+        juego = {};
+
+        juego.palabra = palabra;
+
+        juego.estado = 7;
+
+        juego.adivinando = [];
+
+        juego.errado = [];
+
         dibujar(juego);
     }
 
-    dibujar(juego);
+    function palabraAleatoria(){
+        var index = ~~(Math.random() * palabras.length);
+        return palabras[index];
+    }
+    function alertaGanado(){
+        alert("Felicidades, ganaste!");
+    } 
+    function alertaPerdido( palabra){
+        alert("Lo siento, perdiste... la palabra era: " + palabra);
+    }
+    function aletaDesistir(){
+        alert("Lo siento, perdiste... intentalo de nuevo");
+
+        nuevoJuego();
+    }
+
+    nuevoJuego();
+    console.log(juego); 
+
+
+    btnNuevo.addEventListener('click',nuevoJuego);
+    btnDesistir.addEventListener('click',aletaDesistir);
 }());
